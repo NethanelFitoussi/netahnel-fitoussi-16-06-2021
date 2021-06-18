@@ -1,0 +1,29 @@
+
+
+.theme-light {
+    --color-primary: #0060df;
+    --color-secondary: #fbfbfe;
+    --color-accent: #fd6f53;
+    --font-color: #000000;
+}
+
+.theme-dark {
+    background-color: #495057;
+    color: #fbfbfe;
+    height: 100%;
+    background-attachment: fixed;
+}
+
+.theme-dark .topnav, .theme-dark .card {
+    background-color: #838383;
+}
+
+
+.theme-dark .topnav a.active {
+    background-color: #15507f;
+}
+
+.theme-dark button {
+    border: 1px solid #fff;
+    color: #fff;
+}
