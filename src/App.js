@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Favorite from './components/Favorite';
 import Top from './components/Top';
@@ -28,7 +28,7 @@ class App extends Component {
           <Top />
           <div className = "App container" >
           {
-            this.props.active == 'weather' ? (
+            this.props.active === 'weather' ? (
               <Weather / >
             ) : (
               <Favorite / >

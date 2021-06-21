@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import './Top.css';
 import { connect } from 'react-redux';
 import { activePage, darkMode } from '../redux/actions/action';

@@ -17,7 +17,7 @@ class Favorite extends Component {
 
     componentDidMount() {
         this.props.favorite.map((fav, i) => (
-            axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${fav.id}?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0`)
+            axios.get(`https://dataservice.accuweather.com/currentconditions/v1/${fav.id}?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN`)
                 .then(res => {
                     console.log('res', res.data[0].Temperature.Imperial.Value);
                     this.setState(prevState => ({

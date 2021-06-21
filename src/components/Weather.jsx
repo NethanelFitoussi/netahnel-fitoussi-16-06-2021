@@ -31,14 +31,14 @@ class Weather extends Component {
 
 
 
-        // axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0&metric=true`)
+        // axios.get(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/215854?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN&metric=true`)
         //     .then(res => {
         //         console.log(res);
         //         console.log(res.data);
         //         this.props.changeWeather(res.data)
         //     });
 
-        // axios.get(`http://dataservice.accuweather.com/currentconditions/v1/215854?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0`)
+        // axios.get(`https://dataservice.accuweather.com/currentconditions/v1/215854?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN`)
         //     .then(res => {
         //         console.log(res);
         //         console.log(res.data);
@@ -48,23 +48,22 @@ class Weather extends Component {
 
     componentDidUpdate() {
         if (!this.state.geolocation && this.state.latitude !== '' && this.state.longitude !== '') {
-            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0&q=${this.state.latitude}%2C${this.state.longitude}`)
+            axios.get(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN&q=${this.state.latitude}%2C${this.state.longitude}`)
                 .then(res => {
-                    console.log('Now', res.data);
                     this.setState({ geolocation: res.data.Key, citySelected: res.data.ParentCity.EnglishName });
                 });
 
         }
 
         if (this.state.geolocation && this.state.latitude !== '' && this.state.longitude !== '') {
-            axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${this.state.geolocation}?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0`)
+            axios.get(`https://dataservice.accuweather.com/currentconditions/v1/${this.state.geolocation}?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN`)
                 .then(res => {
                     this.setState({ latitude: '', longitude: '' });
 
                     this.props.currentWeather(res.data)
                 });
 
-            axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${this.state.geolocation}?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0&metric=${this.state.metric}`)
+            axios.get(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${this.state.geolocation}?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN&metric=${this.state.metric}`)
                 .then(res => {
                     this.props.changeWeather(res.data)
                 });
@@ -73,7 +72,7 @@ class Weather extends Component {
 
     changeMetric = () => {
         this.setState({ metric: !this.state.metric });
-        axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${this.state.geolocation}?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0&metric=${this.state.metric}s`)
+        axios.get(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${this.state.geolocation}?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN&metric=${this.state.metric}s`)
                 .then(res => {
                     this.props.changeWeather(res.data)
                 });
@@ -89,13 +88,12 @@ class Weather extends Component {
     }
 
     render() {
-        console.log('this.state', this.state);
 
         const handleOnSearch = (string, results) => {
             // onSearch will have as the first callback parameter
             // the string searched and for the second the results.
 
-            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0&q=${string}`)
+            axios.get(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN&q=${string}`)
                 .then(res => {
                     const item = [];
                     res.data.forEach(element => {
@@ -109,27 +107,19 @@ class Weather extends Component {
                 })
         }
 
-        const handleOnHover = (result) => {
-            // the item hovered
-            console.log(result)
-        }
 
         const handleOnSelect = (item) => {
-            axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${item.id}?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0`)
+            axios.get(`https://dataservice.accuweather.com/currentconditions/v1/${item.id}?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN`)
                 .then(res => {
                     this.setState({ latitude: '', longitude: '', geolocation: item.id, citySelected: item.name });
 
                     this.props.currentWeather(res.data)
                 });
 
-            axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${item.id}?apikey=IWu97rcaorSeFkDhurSSOAl4RByd2yS0&metric=${this.state.metric}`)
+            axios.get(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${item.id}?apikey=U54qJgB86bLBZvylGJThkT61T94rJtGN&metric=${this.state.metric}`)
                 .then(res => {
                     this.props.changeWeather(res.data)
                 });
-        }
-
-        const handleOnFocus = () => {
-            console.log('Focused')
         }
 
         return (
@@ -139,9 +129,7 @@ class Weather extends Component {
                         <ReactSearchAutocomplete
                             items={this.state.items}
                             onSearch={handleOnSearch}
-                            onHover={handleOnHover}
                             onSelect={handleOnSelect}
-                            onFocus={handleOnFocus}
                             autoFocus
                         />
                     </div>
@@ -184,18 +172,17 @@ class Weather extends Component {
                                     }
                                 </h2>
                                 <div className="text-center mt-3 mb-4">
-                                    <img className="city" src={this.props && this.props.current && this.props.current[0] && this.props.current[0].Temperature.Metric.Value < 23 ? "https://www.employers.org/images/directory/newsletter_content/2020/September/bad_weather_blog_sml.jpg" : "https://s7d2.scene7.com/is/image/TWCNews/sunshine_jpg-5goodjpg?wid=1250&hei=703&$wide-bg$"} />
+                                    <img className="city" alt="city" src={this.props && this.props.current && this.props.current[0] && this.props.current[0].Temperature.Metric.Value < 23 ? "https://www.employers.org/images/directory/newsletter_content/2020/September/bad_weather_blog_sml.jpg" : "https://s7d2.scene7.com/is/image/TWCNews/sunshine_jpg-5goodjpg?wid=1250&hei=703&$wide-bg$"} />
                                 </div>
                                 <div className="row d-flex px-3 mt-auto">
                                     {
                                         this.props.weather && this.props.weather.DailyForecasts && this.props.weather.DailyForecasts.map((weather) => (
-                                            // <li key={attribute}>{attribute}</li>
                                             <div className="d-flex flex-column block first">
                                                 <small className="text-muted mb-0" id="date">
                                                     { this.convertDay(weather.Date) }
                                                 </small>
                                                 <div className="text-center">
-                                                    <img className="symbol" src={weather.Temperature.Minimum.Value < 23 ? "https://i.imgur.com/BeWfUuG.png" : "https://i.imgur.com/Shrg84B.png"} />
+                                                    <img className="symbol" alt="symbol" src={weather.Temperature.Minimum.Value < 23 ? "https://i.imgur.com/BeWfUuG.png" : "https://i.imgur.com/Shrg84B.png"} />
                                                 </div>
                                                 <h6><strong>{weather.Temperature.Minimum.Value} - {weather.Temperature.Maximum.Value}&#176;{weather.Temperature.Maximum.Unit}</strong></h6>
                                             </div>

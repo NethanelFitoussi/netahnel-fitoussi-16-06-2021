@@ -32,7 +32,7 @@ const weatherReducer = (state = initialState, action) => {
             return {
                 ...state,
                 favorite: state.favorite.filter(
-                    (fav) => fav.id != action.payload.id
+                    (fav) => fav.id !== action.payload.id
                 )
             };
         case ACTIVE:
